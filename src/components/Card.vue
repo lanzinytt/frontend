@@ -17,7 +17,23 @@ export default {
   methods: {
     handleClick() {
       if (this.link) {
-        this.$router.push(this.link);
+        // 判断是否为绝对URL(以http://或https://开头)
+        if (this.link.match(/^(http|https):\/\//)) {
+          // 如果是绝对URL，直接在浏览器中打开
+          window.open(this.link, '_blank');
+        } 
+        // 判断是否为机内URI(以/开头或包含特定文件扩展名)
+        else if (this.link.startsWith('/') || 
+                this.link.endsWith('.html') || 
+                this.link.endsWith('.htm') ||
+                this.link.includes('/web_class/')) {
+          // 直接访问机内URI，而不通过路由
+          window.location.href = this.link;
+        } 
+        else {
+          // 其他情况使用Vue Router导航
+          this.$router.push(this.link);
+        }
       }
     }
   }

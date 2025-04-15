@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人介绍</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>个人介绍</h1>
+        <button class="openbtn" onclick="openNav()">☰ 打开侧栏</button>
+    </header>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="#about">关于我</a>
+        <a href="#projects">我的项目</a>
+        <a href="#contact">联系我</a>
+    </div>
+
+    <main id="main">
+        <section id="about">
+            <h2>关于我</h2>
+            <p>你好，我是lanzinytt，一个热爱编程和设计的开发者。我喜欢学习新技术并将其应用到实际项目中。</p>
+            <p>以下是我的一些兴趣和技能：</p>
+            <ol>
+                <li>编程语言：JavaScript, Python, Java</li>
+                <li>前端框架：React, Vue</li>
+                <li>后端框架：Node.js, Express</li>
+                <li>数据库：MySQL, MongoDB</li>
+                <li>其他技能：Git, Docker, Kubernetes</li>
+            </ol>
+            <h3>近照</h3>
+            <div class="photo-gallery">
+                <img src="R-C.jpg" alt="近照1">
+                <img src="u=2428506454,4181865594&fm=253&gp=0.jpg" alt="近照2">
+                <img src="u=4126418405,960871087&fm=253&gp=0.jpg" alt="近照3">
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>我的项目</h2>
+            <ul>
+                <li><a href="https://github.com/yourusername/project1" target="_blank">五子棋AI</a></li>
+            </ul>
+        </section>
+        <section id="contact">
+            <h2>联系我</h2>
+            <p>你可以通过以下方式联系我：</p>
+            <ul>
+                <li><a href="mailto:lanzinytt@.com">电子邮件</a></li>
+            </ul>
+            <br/>
+            <br/>
+        </section>
+        <br/>
+        <br/>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 lanzinytt. 保留所有权利。</p>
+    </footer>
+
+    <script src="sidebar.js"></script>
+</body>
+
+</html>

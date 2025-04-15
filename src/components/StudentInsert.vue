@@ -42,6 +42,25 @@
             <input type="text" v-model="english" ref="englishInput" />
           </td>
         </tr>
+        <tr>
+          <th>Semester</th>
+          <td>
+            <select v-model.number="semester">
+              <option v-for="i in 12" :key="i" :value="i">Semester {{ i }}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>班级</th>
+          <td>
+            <select v-model.number="classValue">
+              <option :value="0">未知</option>
+              <option :value="1">1班</option>
+              <option :value="2">2班</option>
+              <option :value="3">3班</option>
+            </select>
+          </td>
+        </tr>
       </tbody>
     </table>
     <p>
@@ -61,7 +80,9 @@ export default {
       gender: null,
       chinese: "",
       math: "",
-      english: ""
+      english: "",
+      semester: 1, // 新增字段
+      classValue: 0  // 新增班级字段，0 表示未知
     };
   },
   methods: {
@@ -131,7 +152,9 @@ export default {
         gender: this.gender,
         chinese: this.chinese,
         math: this.math,
-        english: this.english
+        english: this.english,
+        semester: this.semester, // 提交 semester
+        class: this.classValue   // 提交班级（整数）
       };
       
       try {
@@ -150,65 +173,109 @@ export default {
 </script>
 
 <style scoped>
-h3,
+h3, h4 {
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+}
+
+h3 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
 h4 {
-  font-weight: normal;
+  font-size: 18px;
+  color: #647d97;
+  margin-bottom: 25px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-input {
-  width: 128px;
-}
+
 p {
   font-style: normal;
 }
+
 p.p-right {
   font-style: italic;
   text-align: right;
+  margin: 15px 0;
 }
+
 div.divCen {
-  margin: 2px auto;
-  width: auto;
+  max-width: 600px;
+  margin: 30px auto;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  padding: 25px;
 }
+
 table {
-  width: 60%;
-  margin: auto;
-  border-collapse: collapse;
-  border: 0;
-  text-align: center;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin: 15px 0;
 }
+
 th {
-  background-color: #93daff;
-  color: #000000;
+  background-color: #f0f7ff;
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 15px;
+  border-radius: 6px 0 0 6px;
+  width: 30%;
 }
-th,
+
 td {
-  font-size: 0.95em;
-  text-align: center;
-  padding: 4px;
-  border-collapse: collapse;
+  padding: 8px 15px;
 }
-th,
-td {
-  border: 1px solid #c1e9fe;
-  border-width: 1px 0 1px 0;
+
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.2s;
 }
-tr {
-  border: 1px solid #c1e9fe;
+
+input:focus, select:focus {
+  border-color: #42b983;
+  box-shadow: 0 0 0 3px rgba(66,184,131,0.2);
+  outline: none;
 }
-tr:nth-child(odd) {
-  background-color: #dbf2fe;
+
+button {
+  background-color: #42b983;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+  font-size: 15px;
+  display: block;
+  margin: 25px auto 10px;
 }
-tr:nth-child(even) {
-  background-color: #fdfdfd;
+
+button:hover {
+  background-color: #3aa876;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(66,184,131,0.3);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+a {
+  color: #42b983;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #3aa876;
+  text-decoration: underline;
 }
 </style>

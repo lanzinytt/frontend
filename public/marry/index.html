@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世纪佳缘</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>世纪佳缘</h1>
+    </header>
+
+    <main>
+        <section id="register-section">
+            <h2>个人介绍</h2>
+            <form id="registerForm">
+                <label for="gender">性别:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                </select>
+                <label for="birthdate">生日:</label>
+                <select id="birthYear" name="birthYear" required>
+                    <option value="">年</option>
+                    <!-- 生成从1900到今年的年份选项 -->
+                    <script>
+                        const currentYear = new Date().getFullYear();
+                        for (let year = 1900; year <= currentYear; year++) {
+                            document.write('<option value="' + year + '">' + year + '</option>');
+                        }
+                    </script>
+                </select>
+
+                <select id="birthMonth" name="birthMonth" required>
+                    <option value="">月</option>
+                    <!-- 生成1到12的月份选项 -->
+                    <script>
+                        for (let month = 1; month <= 12; month++) {
+                            document.write('<option value="' + month + '">' + month + '</option>');
+                        }
+                    </script>
+                </select>
+
+                <select id="birthDay" name="birthDay" required>
+                    <option value="">日</option>
+                    <!-- 生成1到31的日期选项 -->
+                    <script>
+                        for (let day = 1; day <= 31; day++) {
+                            document.write('<option value="' + day + '">' + day + '</option>');
+                        }
+                    </script>
+                </select>
+                <label for="province">省份:</label>
+                <select id="province" name="province" required>
+                    <option value="None"></option>
+                    <option value="北京">北京</option>
+                    <option value="上海">上海</option>
+                    <option value="广东">广东</option>
+                    <option value="江苏">江苏</option>
+                    <!-- 添加更多省份选项 -->
+                </select>
+                <label for="height">身高区间:</label>
+                <select id="height" name="height" required>
+                    <option value="">选择身高</option>
+                    <option value="150-160">150-160 cm</option>
+                    <option value="160-170">160-170 cm</option>
+                    <option value="170-180">170-180 cm</option>
+                    <option value="180-190">180-190 cm</option>
+                    <option value="190-200">190-200 cm</option>
+                </select>
+                <label for="education">学历:</label>
+                <select id="education" name="education" required>
+                    <option value="">选择学历</option>
+                    <option value="primary">小学</option>
+                    <option value="middle">初中</option>
+                    <option value="high">高中</option>
+                    <option value="associate">大专</option>
+                    <option value="bachelor">本科</option>
+                    <option value="master">硕士</option>
+                    <option value="doctorate">博士</option>
+                </select>
+                <label for="salary">月薪区间:</label>
+                <select id="salary" name="salary" required>
+                    <option value="">选择月薪</option>
+                    <option value="3000-5000">3000-5000 元</option>
+                    <option value="5000-7000">5000-7000 元</option>
+                    <option value="7000-10000">7000-10000 元</option>
+                    <option value="10000-15000">10000-15000 元</option>
+                    <option value="15000-20000">15000-20000 元</option>
+                    <option value="20000以上">20000 元以上</option>
+                </select>
+                <label for="phone">手机号:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{11}" placeholder="输入11位手机号" required>
+                <label for="verificationCode">验证码:</label>
+                <input type="text" id="verificationCode" name="verificationCode" placeholder="输入验证码" required>
+                <button type="button" id="getCodeButton">获取验证码</button>
+
+                <label for="tags">选择标签:</label>
+                <br/>
+                <div id="available-tags">
+                    <button type="button" class="tag-button">幽默</button>
+                    <button type="button" class="tag-button">善良</button>
+                    <button type="button" class="tag-button">聪明</button>
+                    <button type="button" class="tag-button">有趣</button>
+                    <button type="button" class="tag-button">体贴</button>
+                </div>
+                <br/>
+                <br/>
+                <input type="hidden" id="selectedTags" name="selectedTags">
+
+                <div id="tags-container"></div>
+                <!-- 将标签容器移到脚本之前 -->
+                <br/>
+                <br/>
+                <button type="submit">注册</button>
+
+                <script>
+                    // 选取所有标签按钮、已选标签的容器及隐藏输入
+                    const tagButtons = document.querySelectorAll('.tag-button');
+                    const tagsContainer = document.getElementById('tags-container');
+                    const selectedTagsInput = document.getElementById('selectedTags'); // 如果有此隐藏字段
+                    let selectedTags = []; // 用于记录当前选中的标签
+                    const buttonTagMapping = {}; // 用来存储 “标签文字 -> 标签元素” 映射
+
+                    tagButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const tagText = button.textContent;
+
+                            // 如果已经选中，再次点击则移除
+                            if (selectedTags.includes(tagText)) {
+                                selectedTags = selectedTags.filter(tag => tag !== tagText); // 从数组中移除
+                                tagsContainer.removeChild(buttonTagMapping[tagText]); // 从页面中移除
+                                delete buttonTagMapping[tagText]; // 从映射中删除
+                            } else {
+                                // 未选中则添加
+                                selectedTags.push(tagText);
+                                const tagElem = document.createElement('span');
+                                tagElem.classList.add('selected-tag'); // 方便自定义CSS样式
+                                tagElem.textContent = tagText;
+                                tagsContainer.appendChild(tagElem);
+                                buttonTagMapping[tagText] = tagElem;
+                            }
+
+                            // 如果有隐藏字段，可将其设为逗号分隔的标签列表
+                            if (selectedTagsInput) {
+                                selectedTagsInput.value = selectedTags.join(',');
+                            }
+                        });
+                    });
+                </script>
+            </form>
+        </section>
+
+        <section id="info-section" style="display: none;">
+            <h2>提交你的个人信息</h2>
+            <form id="infoForm">
+                <label for="name">姓名:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="age">年龄:</label>
+                <input type="number" id="age" name="age" required>
+
+                <label for="gender">性别:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                </select>
+
+                <label for="email">电子邮件:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">自我介绍:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">提交</button>
+            </form>
+            <br/>
+            <br/>
+        </section>
+
+        <section id="response-section" style="display: none;">
+            <h2>提交结果</h2>
+            <p id="responseMessage"></p>
+            <button onclick="goBack()">返回</button>
+        </section>
+        <br/>
+        <br/>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 世纪佳缘. 保留所有权利。</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

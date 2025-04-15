@@ -5,6 +5,7 @@ import MainHall from '../components/MainHall.vue';
 import StudentInfo from '../components/StudentInfo.vue';
 import StudentEdit from '../components/StudentEdit.vue';
 import StudentInsert from '../components/StudentInsert.vue';
+
 const routes = [
    {
     path: '/',
@@ -28,6 +29,10 @@ const routes = [
     path: '/edit/:id',
     name: 'StudentEdit',
     component: StudentEdit
+}, {
+    path: '/Predict',
+    name: 'Predict',
+    component: () => import('../components/Predict.vue'),
 }];
 
 export default createRouter({
